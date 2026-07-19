@@ -2,7 +2,13 @@
 
 适用于官方 Codex 桌面客户端的可交互主题，支持 Windows 和 macOS。背景、欢迎区、Codex logo、原生建议按钮和连接线统一设计，侧栏、输入框、按钮和任务内容仍使用 Codex 原生控件。
 
-![小龙女 Codex 皮肤预览](docs/images/xiaolongnv-preview.png)
+### Windows 效果预览
+
+![小龙女 Codex 皮肤 Windows 效果预览](docs/images/xiaolongnv-windows-preview.jpg)
+
+### macOS 效果预览
+
+![小龙女 Codex 皮肤 macOS 效果预览](docs/images/xiaolongnv-macos-preview.jpg)
 
 > 非 OpenAI 官方项目。皮肤通过仅绑定本机回环地址的 Chromium DevTools Protocol 注入，不修改官方 Codex 安装包、`app.asar` 或应用签名。
 
