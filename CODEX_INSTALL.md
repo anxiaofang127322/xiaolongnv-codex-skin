@@ -2,10 +2,10 @@
 
 不要只把裸链接发给 Codex。链接后面加一句明确的安装请求，成功率更高。
 
-把下面内容中的地址换成你的 GitHub 仓库地址，然后整段发给 Codex：
+把下面内容整段发给 Codex：
 
 ```text
-请安装这个 Codex 皮肤：<GitHub 仓库地址>
+请安装这个 Codex 皮肤：https://github.com/anxiaofang127322/xiaolongnv-codex-skin
 
 请把完整仓库下载或克隆到稳定目录，不要使用会被删除的临时目录。先阅读根目录 AGENTS.md，再根据当前系统阅读 windows/SKILL.md 或 macos/SKILL.md。运行测试后安装，重启 Codex 前先告诉我，完成后验证首页效果，并向我说明版本、安装位置、使用方法、注意事项和恢复官方外观的方法。不要修改官方 Codex 安装包或 app.asar。
 ```

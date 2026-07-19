@@ -8,10 +8,10 @@
 
 ## 让 Codex 自动安装
 
-把下面这句话发给 Codex，将地址换成你的仓库地址：
+把下面这句话直接发给 Codex：
 
 ```text
-请安装这个 Codex 皮肤：<GitHub 仓库地址>。请下载完整仓库，阅读根目录 AGENTS.md，按当前系统完成测试、安装和首页验证，重启前先告诉我，并说明使用方法、注意事项和恢复方式。
+请安装这个 Codex 皮肤：https://github.com/anxiaofang127322/xiaolongnv-codex-skin 。请下载完整仓库，阅读根目录 AGENTS.md，按当前系统完成测试、安装和首页验证，重启前先告诉我，并说明使用方法、注意事项和恢复方式。
 ```
 
 更完整的提示词和更新方式见 [CODEX_INSTALL.md](CODEX_INSTALL.md)。仅发送裸链接不能保证 Codex 理解为安装请求，建议至少附带“请安装这个皮肤”。
