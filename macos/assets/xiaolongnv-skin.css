@@ -1,0 +1,487 @@
+:root.codex-dream-skin {
+  color-scheme: light !important;
+  --skin-ink: #244f4a;
+  --skin-muted: #728783;
+  --skin-teal: #52aaa2;
+  --skin-panel: rgba(247, 251, 249, .82);
+  --skin-line: rgba(86, 135, 127, .22);
+}
+html.codex-dream-skin {
+  background: #eef5f2 !important;
+}
+
+html.codex-dream-skin body {
+  color: var(--skin-ink) !important;
+  background: #eef5f2 !important;
+  font-family: "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif !important;
+}
+html.codex-dream-skin body:has(.dream-home) {
+  position: relative;
+  isolation: isolate;
+  background: transparent !important;
+}
+html.codex-dream-skin body:has(.dream-home)::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: var(--dream-main-left, 275px);
+  pointer-events: none;
+  background-image:
+    linear-gradient(90deg, rgba(239, 246, 243, .74) 0%, rgba(239, 246, 243, .30) 42%, rgba(239, 246, 243, .04) 70%),
+    var(--dream-art);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+html.codex-dream-skin aside.app-shell-left-panel {
+  color: #49615d !important;
+  background: rgba(244, 249, 247, .86) !important;
+  border: 0 !important;
+  border-right: 1px solid rgba(93, 137, 129, .12) !important;
+  border-radius: 0 !important;
+  box-shadow: 12px 0 34px rgba(62, 100, 92, .07) !important;
+  backdrop-filter: blur(18px) !important;
+}
+html.codex-dream-skin aside.app-shell-left-panel nav { background: transparent !important; }
+html.codex-dream-skin aside.app-shell-left-panel button { color: #50635f !important; }
+html.codex-dream-skin aside.app-shell-left-panel button:hover {
+  color: #277f77 !important;
+  background: rgba(218, 236, 231, .68) !important;
+}
+html.codex-dream-skin aside.app-shell-left-panel [class~="bg-token-list-hover-background"],
+html.codex-dream-skin aside.app-shell-left-panel [aria-current="page"] {
+  color: #26857d !important;
+  background: rgba(218, 236, 231, .76) !important;
+  border: 1px solid rgba(74, 155, 145, .10) !important;
+}
+
+html.codex-dream-skin main.main-surface {
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: #eef5f2 !important;
+  overflow: hidden !important;
+}
+html.codex-dream-skin main.main-surface:has([role="main"].dream-home) {
+  background: transparent !important;
+}
+html.codex-dream-skin main.main-surface.dream-home-shell > header.app-header-tint {
+  background: transparent !important;
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+html.codex-dream-skin main.main-surface.dream-home-shell .app-shell-main-content-top-fade {
+  display: none !important;
+}
+html.codex-dream-skin [role="main"] {
+  background: transparent !important;
+  scrollbar-color: rgba(75, 132, 123, .38) transparent;
+}
+
+#codex-dream-skin-chrome {
+  position: fixed;
+  z-index: 31;
+  pointer-events: none;
+  overflow: visible;
+}
+.dream-copy {
+  position: absolute;
+  left: clamp(64px, 8vw, 120px);
+  top: 160px;
+  display: none;
+  width: min(460px, 42vw);
+  color: #285a55;
+  text-shadow: 0 1px 8px rgba(255, 255, 255, .78);
+}
+#codex-dream-skin-chrome.dream-home-shell .dream-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.dream-copy-welcome {
+  margin-bottom: 20px;
+  font: 500 18px/1.4 -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+}
+.dream-copy-title {
+  font: 500 43px/1.22 "STKaiti", "Kaiti SC", "KaiTi", serif;
+}
+.dream-copy-tagline {
+  margin-top: 20px;
+  color: rgba(66, 91, 87, .68);
+  font: 400 15px/1.5 -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+}
+.dream-brand, .dream-signature, .dream-sparkles, .dream-polaroid, .dream-ribbon {
+  display: none !important;
+}
+.dream-orbit-logo {
+  position: absolute;
+  left: 5px;
+  top: 425px;
+  width: 170px;
+  height: 210px;
+  display: none;
+  overflow: visible;
+}
+#codex-dream-skin-chrome.dream-home-shell .dream-orbit-logo { display: block; }
+.dream-connector-map {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 170px;
+  height: 210px;
+  overflow: visible;
+  pointer-events: none;
+}
+.dream-connector-map path {
+  fill: none;
+  stroke: rgba(105, 184, 174, .86);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-dasharray: 4 6;
+  filter: drop-shadow(0 0 3px rgba(105, 184, 174, .62));
+}
+.dream-connector-map circle {
+  fill: #a8e2da;
+  filter: drop-shadow(0 0 3px #a8e2da) drop-shadow(0 0 7px rgba(105, 184, 174, .78));
+}
+.dream-logo-disc {
+  position: absolute;
+  left: 30px;
+  top: 54px;
+  display: grid;
+  width: 82px;
+  height: 82px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .92);
+  border: 1px solid rgba(255, 255, 255, .88);
+  box-shadow: 0 0 0 10px rgba(126, 225, 214, .10), 0 0 30px rgba(91, 207, 195, .40),
+    0 12px 26px rgba(48, 132, 122, .13);
+}
+.dream-logo-mark {
+  display: block;
+  width: 48px;
+  height: 48px;
+  background: #62c2b7;
+  -webkit-mask: var(--dream-logo) center / contain no-repeat;
+  mask: var(--dream-logo) center / contain no-repeat;
+}
+
+html.codex-dream-skin .dream-home {
+  --thread-content-max-width: none !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+.dream-home > div:first-child {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  padding: 0 !important;
+}
+.dream-home > div:first-child > div:first-child {
+  position: absolute !important;
+  inset: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+}
+.dream-home > div:first-child > div:first-child > div:first-child {
+  position: absolute !important;
+  inset: 0 !important;
+  isolation: isolate;
+  width: 100% !important;
+  max-width: none !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+.dream-home > div:first-child > div:first-child > div:first-child::before { display: none !important; }
+.dream-home > div:first-child > div:first-child > div:first-child > div:first-child {
+  position: absolute !important;
+  left: 80px !important;
+  top: 108px !important;
+  z-index: 2;
+  display: block !important;
+  width: 500px !important;
+  height: auto !important;
+  padding: 0 !important;
+}
+.dream-home > div:first-child > div:first-child > div:first-child > div:first-child > div:first-child {
+  width: 100% !important;
+  align-items: flex-start !important;
+  gap: 0 !important;
+}
+.dream-home [data-testid="home-icon"] { display: none !important; }
+.dream-home [data-feature="game-source"] {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  max-width: 100% !important;
+  color: #264f4b !important;
+  width: 430px !important;
+  font: 500 43px/1.2 "STKaiti", "KaiTi", serif !important;
+  letter-spacing: .02em;
+  text-align: left !important;
+  text-shadow: 0 1px 8px rgba(255, 255, 255, .72);
+  opacity: 0 !important;
+  pointer-events: auto !important;
+}
+.dream-home [data-feature="game-source"]::before {
+  content: none;
+  display: block;
+  margin-bottom: 18px;
+  color: #315e59;
+  font: 500 18px/1.4 "Microsoft YaHei UI", sans-serif;
+  letter-spacing: .04em;
+}
+.dream-home [data-feature="game-source"]::after {
+  content: none;
+  display: block;
+  margin-top: 18px;
+  color: rgba(66, 91, 87, .65);
+  font: 400 15px/1.5 "Microsoft YaHei UI", sans-serif;
+  letter-spacing: .06em;
+}
+.dream-home [data-feature="game-source"] button { display: none !important; }
+
+.dream-home > div:first-child > div:first-child > div:first-child > div:nth-child(2) {
+  position: absolute !important;
+  left: 150px !important;
+  right: auto !important;
+  top: 418px !important;
+  width: 700px !important;
+  margin: 0 !important;
+  z-index: 4 !important;
+  background: transparent !important;
+}
+.dream-home .group\/home-suggestions {
+  width: 700px !important;
+  transform: none !important;
+  overflow: visible !important;
+  background: transparent !important;
+}
+.dream-home .group\/home-suggestions > div {
+  width: 700px !important;
+  min-width: 0 !important;
+}
+.dream-home .group\/home-suggestions > div > div {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  width: 700px !important;
+}
+.dream-home .group\/home-suggestions > div > div > div {
+  width: max-content !important;
+  max-width: 100% !important;
+  height: 48px !important;
+  min-width: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  animation: none !important;
+}
+.dream-home .group\/home-suggestions button {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  width: max-content !important;
+  max-width: 100% !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  padding: 5px 18px 5px 7px !important;
+  color: #334b48 !important;
+  border: 1px solid rgba(255, 255, 255, .72) !important;
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, .72) !important;
+  box-shadow: 0 7px 18px rgba(60, 96, 90, .09) !important;
+  backdrop-filter: blur(10px) !important;
+  transition: transform .16s ease, background .16s ease, box-shadow .16s ease !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  animation: none !important;
+}
+.dream-home .group\/home-suggestions button:hover {
+  transform: none !important;
+  background: rgba(255, 255, 255, .90) !important;
+  box-shadow: 0 10px 22px rgba(60, 96, 90, .14) !important;
+}
+.dream-home .group\/home-suggestions button > span:first-child {
+  display: flex !important;
+  flex: 0 0 36px !important;
+  width: 36px !important;
+  height: 36px !important;
+  margin: 0 !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.dream-home .group\/home-suggestions button > span:first-child > span:first-child {
+  display: flex !important;
+  width: 36px !important;
+  height: 36px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  background: rgba(220, 239, 235, .92) !important;
+  box-shadow: none !important;
+}
+.dream-home .group\/home-suggestions button svg {
+  position: static !important;
+  display: block !important;
+  flex: 0 0 auto !important;
+  width: 18px !important;
+  height: 18px !important;
+  margin: 0 !important;
+  transform: none !important;
+}
+.dream-home .group\/home-suggestions button > span:last-child {
+  display: flex !important;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  text-align: left !important;
+}
+.dream-home .group\/home-suggestions button > span:last-child > span {
+  width: auto !important;
+  max-width: none !important;
+  color: #334b48 !important;
+  font-size: 13px !important;
+  line-height: 20px !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+}
+.dream-home .group\/home-suggestions > div > div > div:nth-child(1) button > span:first-child > span:first-child {
+  color: #418cff !important;
+  background: #e6f1ff !important;
+}
+.dream-home .group\/home-suggestions > div > div > div:nth-child(2) button > span:first-child > span:first-child {
+  color: #9a5dff !important;
+  background: #f0e8ff !important;
+}
+.dream-home .group\/home-suggestions > div > div > div:nth-child(3) button > span:first-child > span:first-child {
+  color: #28af6e !important;
+  background: #e4f7ed !important;
+}
+.dream-home .group\/home-suggestions > div > div > div:nth-child(4) button > span:first-child > span:first-child {
+  color: #ff7e3b !important;
+  background: #fff0e5 !important;
+}
+
+.dream-home > div:first-child > div:nth-child(2) {
+  position: absolute !important;
+  inset: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  pointer-events: none !important;
+}
+.dream-home > div:first-child > div:nth-child(2) > div {
+  pointer-events: auto !important;
+}
+.dream-home div[class~="justify-end"][class~="grow"][class~="basis-0"][class~="shrink-0"] {
+  position: absolute !important;
+  inset: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  pointer-events: none !important;
+}
+.dream-home div[class~="z-20"][class~="pb-4"]:has(.composer-surface-chrome) {
+  position: absolute !important;
+  left: 80px !important;
+  bottom: 34px !important;
+  width: min(660px, calc(100% - 160px)) !important;
+  height: auto !important;
+  padding: 0 !important;
+  pointer-events: auto !important;
+}
+.dream-home .horizontal-scroll-fade-mask:has(.group\/project-selector),
+.dream-home .group\/project-selector,
+.dream-home div[class*="_homeUtilityBar_"] {
+  display: none !important;
+}
+html.codex-dream-skin .composer-surface-chrome {
+  color: #4b5f5b !important;
+  border: 1px solid rgba(255, 255, 255, .76) !important;
+  border-radius: 22px !important;
+  background: rgba(255, 255, 255, .78) !important;
+  box-shadow: 0 10px 28px rgba(66, 99, 93, .12) !important;
+  backdrop-filter: blur(13px) !important;
+  overflow: hidden !important;
+}
+html.codex-dream-skin .ProseMirror {
+  color: #425853 !important;
+  caret-color: #52aaa2 !important;
+}
+html.codex-dream-skin button[class~="bg-token-foreground"] {
+  color: white !important;
+  background: #55aaa2 !important;
+  box-shadow: 0 4px 12px rgba(45, 139, 129, .22) !important;
+}
+
+@media (max-width: 980px) {
+  .dream-copy {
+    left: 46px;
+    width: min(430px, calc(100% - 92px));
+  }
+  .dream-home > div:first-child > div:first-child > div:first-child > div:first-child {
+    left: 46px !important;
+    top: 92px !important;
+    width: 430px !important;
+  }
+  .dream-home > div:first-child > div:first-child > div:first-child > div:nth-child(2) {
+    left: 140px !important;
+    top: 438px !important;
+    width: min(700px, calc(100% - 94px)) !important;
+  }
+  .dream-home .group\/home-suggestions,
+  .dream-home .group\/home-suggestions > div { width: min(700px, calc(100vw - 140px)) !important; }
+  .dream-home .group\/home-suggestions > div > div { width: min(700px, calc(100vw - 140px)) !important; }
+  .dream-home .group\/home-suggestions > div > div > div { width: max-content !important; }
+  .dream-orbit-logo { left: -5px; top: 420px; }
+  .dream-home div[class~="z-20"][class~="pb-4"]:has(.composer-surface-chrome) {
+    left: 46px !important;
+    width: min(590px, calc(100% - 92px)) !important;
+  }
+}
+
+@media (max-height: 820px) {
+  .dream-copy { top: 112px; }
+  .dream-home > div:first-child > div:first-child > div:first-child > div:nth-child(2) {
+    top: 300px !important;
+  }
+  .dream-orbit-logo { top: 300px; }
+}
+
+@media (max-height: 720px) {
+  .dream-copy { top: 72px; }
+  .dream-home > div:first-child > div:first-child > div:first-child > div:first-child {
+    top: 58px !important;
+  }
+  .dream-home > div:first-child > div:first-child > div:first-child > div:nth-child(2) {
+    top: 378px !important;
+  }
+  .dream-orbit-logo { top: 335px; }
+}

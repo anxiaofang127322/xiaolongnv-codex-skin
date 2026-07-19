@@ -1,0 +1,9 @@
+.DS_Store
+._*
+*.log
+*.zip
+release/
+work/
+screenshots/
+state.json
+verification.png
