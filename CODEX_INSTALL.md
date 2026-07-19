@@ -7,12 +7,14 @@
 ```text
 请安装这个 Codex 皮肤：https://github.com/anxiaofang127322/xiaolongnv-codex-skin
 
-请把完整仓库下载或克隆到稳定目录，不要使用会被删除的临时目录。先阅读根目录 AGENTS.md，再根据当前系统阅读 windows/SKILL.md 或 macos/SKILL.md。运行测试后安装，重启 Codex 前先告诉我，完成后验证首页效果，并向我说明版本、安装位置、使用方法、注意事项和恢复官方外观的方法。不要修改官方 Codex 安装包或 app.asar。
+请把完整仓库下载或克隆到稳定目录，不要使用会被删除的临时目录。先阅读根目录 AGENTS.md，再根据当前系统阅读 windows/SKILL.md 或 macos/SKILL.md。安装前请先问我：“默认名称为【李嘉图】，请告诉我您要修改成什么昵称？” Windows 下请自行检测 PowerShell 7 或 5.1，优先使用 7；能查询时不要让我手动判断版本。运行测试后安装，重启 Codex 前先告诉我，完成后验证首页效果，并向我说明版本、昵称、安装位置、使用方法、注意事项和恢复官方外观的方法。不要修改官方 Codex 安装包或 app.asar。
 ```
 
 ## Codex 应该完成什么
 
 - 判断当前是 Windows 还是 macOS。
+- 询问欢迎昵称，空白时使用默认昵称“李嘉图”。
+- Windows 自动检测 PowerShell 7/5.1 并选择匹配入口，不要求用户猜测。
 - 下载完整仓库，而不是只下载图片或 CSS。
 - 运行对应平台测试。
 - 安装并重启一次 Codex。

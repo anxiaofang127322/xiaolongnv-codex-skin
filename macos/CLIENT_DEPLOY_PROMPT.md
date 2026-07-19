@@ -32,7 +32,8 @@
    然后运行 `<ENGINE>/tests/run-tests.sh`。测试失败时先定位并修复，禁止跳过。
 
 4. 确认官方 Codex 至少运行过一次，且 `~/.codex/config.toml` 已存在。运行：
-   `<ENGINE>/scripts/install-dream-skin-macos.sh --no-launch`
+   安装前先询问：`默认名称为【李嘉图】，请告诉我您要修改成什么昵称？`
+   `<ENGINE>/scripts/install-dream-skin-macos.sh --no-launch --nickname "<用户昵称>"`
    完整项目应被安装到 `~/.codex/codex-dream-skin-studio`，默认不得在桌面生成额外入口文件。
 
 5. 如果我上传了主题图片，使用安装后的脚本处理素材：

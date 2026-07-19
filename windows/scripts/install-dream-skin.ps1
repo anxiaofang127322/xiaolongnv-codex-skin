@@ -1,7 +1,8 @@
 [CmdletBinding()]
 param(
   [int]$Port = 9335,
-  [switch]$NoShortcuts
+  [switch]$NoShortcuts,
+  [string]$Nickname
 )
 
 $ErrorActionPreference = 'Stop'
@@ -12,7 +13,7 @@ $SkillRoot = Split-Path -Parent $PSScriptRoot
 $operationLock = Enter-DreamSkinOperationLock
 try {
   Assert-DreamSkinPort -Port $Port
-  $null = Get-DreamSkinNodeRuntime
+  $node = Get-DreamSkinNodeRuntime
   $registeredInstalls = @(Get-DreamSkinRegisteredCodexInstalls)
   if ($registeredInstalls.Count -eq 0) {
     throw 'The official OpenAI.Codex Store package is not installed or its identity cannot be validated.'
@@ -33,6 +34,15 @@ try {
     throw 'The saved Codex path is still running but no longer matches a registered Store package. Close it manually before installing.'
   }
   New-Item -ItemType Directory -Force -Path $StateRoot | Out-Null
+  if (-not $Nickname) { $Nickname = $env:CODEX_DREAM_NICKNAME }
+  if (-not $Nickname) {
+    $Nickname = if (Test-Path -LiteralPath $DreamSkinPreferencesPath) { $null } else { '李嘉图' }
+  }
+  if ($Nickname) {
+    & $node.Path (Join-Path $PSScriptRoot 'preferences.mjs') set-nickname `
+      --path $DreamSkinPreferencesPath --nickname $Nickname *> $null
+    if ($LASTEXITCODE -ne 0) { throw 'Could not save the Dream Skin nickname.' }
+  }
   $ConfigPath = Join-Path $HOME '.codex\config.toml'
   $BackupPath = Join-Path $StateRoot 'config.before-dream-skin.toml'
   Install-DreamSkinBaseTheme -ConfigPath $ConfigPath -BackupPath $BackupPath

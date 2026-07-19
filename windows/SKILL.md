@@ -9,7 +9,7 @@ Apply a reversible renderer skin through Chromium DevTools Protocol while launch
 
 ## Workflow
 
-1. Close Codex, then run `scripts/install-dream-skin.ps1` once to set the matching official base colors and create launch/restore shortcuts. The launcher validates and uses the Node.js runtime bundled with Codex; no separate Node.js installation is required.
+1. Ask for the welcome nickname first; default to `李嘉图` when blank. Detect PowerShell automatically, preferring `pwsh.exe` and falling back to Windows PowerShell 5.1. Do not ask the user to guess the version. Close Codex, then run the matching installer with `-Nickname "<chosen nickname>"` once to set the matching official base colors and create launch/restore shortcuts. The launcher validates and uses the Node.js runtime bundled with Codex; no separate Node.js installation is required.
 2. Run `scripts/start-dream-skin.ps1`. The shortcut asks before restarting an already-open Codex app; CLI callers must explicitly add `-RestartExisting`.
 3. Run `scripts/verify-dream-skin.ps1 -ScreenshotPath <absolute-path>` after launch. Treat a missing hero, native composer, sidebar skin, or injection marker as failure. The native suggestion count is responsive and may be two to four.
 4. Inspect the screenshot against `references/qa-inventory.md`. Verify both the home screen and a normal task before signing off.

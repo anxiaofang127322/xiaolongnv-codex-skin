@@ -2,7 +2,8 @@
 [CmdletBinding()]
 param(
   [int]$Port = 9335,
-  [switch]$NoShortcuts
+  [switch]$NoShortcuts,
+  [string]$Nickname
 )
 
 $arguments = @{}

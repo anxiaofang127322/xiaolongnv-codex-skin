@@ -16,17 +16,17 @@
 
 ## Release
 
-创建标签和 Release：`v1.2.2`。
+创建标签和 Release：`v1.2.3`。
 
 上传：
 
-- `xiaolongnv-codex-skin-1.2.2.zip`
-- `xiaolongnv-codex-skin-1.2.2.zip.sha256`
+- `xiaolongnv-codex-skin-1.2.3.zip`
+- `xiaolongnv-codex-skin-1.2.3.zip.sha256`
 
 推荐 Release 文案：
 
 ```markdown
-## 小龙女 Codex 皮肤 1.2.2
+## 小龙女 Codex 皮肤 1.2.3
 
 支持 Windows 和 macOS 的非官方 Codex 桌面主题。
 

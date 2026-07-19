@@ -1,5 +1,8 @@
 . (Join-Path $PSScriptRoot 'config-utf8.ps1')
 
+$DreamSkinPreferencesPath = Join-Path $env:LOCALAPPDATA 'CodexDreamSkin\preferences.json'
+$env:CODEX_DREAM_SKIN_PREFERENCES = $DreamSkinPreferencesPath
+
 function Enter-DreamSkinOperationLock {
   $sid = [System.Security.Principal.WindowsIdentity]::GetCurrent().User.Value
   $mutex = [System.Threading.Mutex]::new($false, "Local\CodexDreamSkin.$sid.Operation")

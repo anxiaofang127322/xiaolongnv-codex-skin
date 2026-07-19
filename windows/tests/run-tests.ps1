@@ -314,6 +314,20 @@ try {
   if ($LASTEXITCODE -ne 0) { throw 'Injector CDP self-test failed.' }
   & $node.Path (Join-Path $Root 'scripts\injector.mjs') --check-payload *> $null
   if ($LASTEXITCODE -ne 0) { throw 'Injector self-test failed.' }
+  $preferencesPath = Join-Path $temporaryRoot 'preferences.json'
+  & $node.Path (Join-Path $Root 'scripts\preferences.mjs') set-nickname `
+    --path $preferencesPath --nickname '阿芳' *> $null
+  if ($LASTEXITCODE -ne 0) { throw 'Nickname preference write failed.' }
+  $previousPreferences = $env:CODEX_DREAM_SKIN_PREFERENCES
+  try {
+    $env:CODEX_DREAM_SKIN_PREFERENCES = $preferencesPath
+    $payloadJson = & $node.Path (Join-Path $Root 'scripts\injector.mjs') --check-payload
+    if ($LASTEXITCODE -ne 0 -or $payloadJson -notmatch '"pass"\s*:\s*true' -or $payloadJson -notmatch '阿芳') {
+      throw 'Nickname payload validation failed.'
+    }
+  } finally {
+    $env:CODEX_DREAM_SKIN_PREFERENCES = $previousPreferences
+  }
 
   Write-Host 'PASS: config transactions, restore scoping, state safety, argument quoting, and loopback CDP validation.'
 } finally {

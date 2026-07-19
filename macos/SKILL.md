@@ -10,7 +10,7 @@ This file is an optional Codex capability entry. The delivery is a complete stan
 
 ## Workflow
 
-1. Run `Install Codex Dream Skin.command` from the complete project folder.
+1. Ask for the welcome nickname first; default to `李嘉图` when blank. Run `Install Codex Dream Skin.command --nickname "<chosen nickname>"` from the complete project folder.
 2. Run `Customize Codex Dream Skin.command`, choose an image in Finder, and enter a theme name.
 3. Verify the live result with `Verify Codex Dream Skin.command`. A pass requires a visible native sidebar and composer, no horizontal overflow, non-interactive decoration, and—on the home route—a real banner, native cards, and project selector.
 4. Restore the official appearance with `Restore Codex Dream Skin.command`.

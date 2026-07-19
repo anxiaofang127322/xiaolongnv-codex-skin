@@ -1,4 +1,4 @@
-((cssText, artDataUrl, logoDataUrl) => {
+((cssText, artDataUrl, logoDataUrl, nickname) => {
   const STATE_KEY = "__CODEX_DREAM_SKIN_STATE__";
   const STYLE_ID = "codex-dream-skin-style";
   const CHROME_ID = "codex-dream-skin-chrome";
@@ -82,6 +82,7 @@
     root.classList.add("codex-dream-skin");
     root.style.setProperty("--dream-art", `url("${artUrl}")`);
     root.style.setProperty("--dream-logo", `url("${logoDataUrl}")`);
+    root.style.setProperty("--dream-welcome", JSON.stringify(`欢迎回来，${nickname}`));
 
     let style = document.getElementById(STYLE_ID);
     if (!style) {
@@ -139,6 +140,7 @@
     document.documentElement?.classList.remove("codex-dream-skin");
     document.documentElement?.style.removeProperty("--dream-art");
     document.documentElement?.style.removeProperty("--dream-logo");
+    document.documentElement?.style.removeProperty("--dream-welcome");
     document.documentElement?.style.removeProperty("--dream-main-left");
     document.querySelectorAll(".dream-home").forEach((node) => node.classList.remove("dream-home"));
     document.querySelectorAll(".dream-home-shell").forEach((node) => node.classList.remove("dream-home-shell"));
@@ -164,7 +166,7 @@
   const observer = new MutationObserver(scheduleEnsure);
   observer.observe(document.documentElement, { childList: true, subtree: true });
   const timer = setInterval(ensure, 5000);
-  window[STATE_KEY] = { ensure, cleanup, observer, timer, scheduler, artUrl, version: "1.0.0" };
+  window[STATE_KEY] = { ensure, cleanup, observer, timer, scheduler, artUrl, version: __DREAM_SKIN_VERSION_JSON__ };
   ensure();
-  return { installed: true, version: "1.0.0" };
-})(__DREAM_CSS_JSON__, __DREAM_ART_JSON__, __DREAM_LOGO_JSON__)
+  return { installed: true, version: __DREAM_SKIN_VERSION_JSON__ };
+})(__DREAM_CSS_JSON__, __DREAM_ART_JSON__, __DREAM_LOGO_JSON__, __DREAM_NICKNAME_JSON__)

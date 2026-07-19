@@ -214,7 +214,7 @@ html.codex-dream-skin .dream-home {
   pointer-events: auto !important;
 }
 .dream-home [data-feature="game-source"]::before {
-  content: "欢迎回来，李嘉图";
+  content: var(--dream-welcome, "欢迎回来，李嘉图");
   display: block;
   margin-bottom: 18px;
   color: #315e59;

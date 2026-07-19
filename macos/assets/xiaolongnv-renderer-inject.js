@@ -1,4 +1,4 @@
-((cssText, artDataUrl, logoDataUrl) => {
+((cssText, artDataUrl, logoDataUrl, nickname) => {
   const STATE_KEY = "__CODEX_DREAM_SKIN_STATE__";
   const STYLE_ID = "codex-dream-skin-style";
   const CHROME_ID = "codex-dream-skin-chrome";
@@ -135,7 +135,7 @@
     if (chrome.querySelector(".dream-connector-map")?.dataset.layout !== "dynamic-v2") {
       chrome.innerHTML = `
         <div class="dream-copy" aria-hidden="true">
-          <span class="dream-copy-welcome">欢迎回来，李嘉图</span>
+          <span class="dream-copy-welcome"></span>
           <span class="dream-copy-title">我们该构建什么？</span>
           <span class="dream-copy-tagline">心若澄明，代码自有章法。</span>
         </div>
@@ -150,6 +150,8 @@
           <div class="dream-logo-disc"><span class="dream-logo-mark"></span></div>
         </div>`;
     }
+    const welcome = chrome.querySelector(".dream-copy-welcome");
+    if (welcome) welcome.textContent = `欢迎回来，${nickname}`;
     const shellBox = shellMain.getBoundingClientRect();
     root.style.setProperty("--dream-main-left", `${Math.round(shellBox.left)}px`);
     chrome.style.left = `${Math.round(shellBox.left)}px`;
@@ -193,4 +195,4 @@
   window[STATE_KEY] = { ensure, cleanup, observer, timer, scheduler, artUrl, version: __DREAM_SKIN_VERSION_JSON__ };
   ensure();
   return { installed: true, version: __DREAM_SKIN_VERSION_JSON__ };
-})(__DREAM_CSS_JSON__, __DREAM_ART_JSON__, __DREAM_LOGO_JSON__)
+})(__DREAM_CSS_JSON__, __DREAM_ART_JSON__, __DREAM_LOGO_JSON__, __DREAM_NICKNAME_JSON__)

@@ -7,6 +7,7 @@ PORT=9341
 CREATE_LAUNCHERS="false"
 LAUNCH_AFTER_INSTALL="true"
 IN_PLACE="false"
+NICKNAME="${CODEX_DREAM_NICKNAME:-}"
 while [ "$#" -gt 0 ]; do
   case "$1" in
     --port) PORT="${2:-}"; shift 2 ;;
@@ -14,6 +15,7 @@ while [ "$#" -gt 0 ]; do
     --no-launchers) CREATE_LAUNCHERS="false"; shift ;;
     --no-launch) LAUNCH_AFTER_INSTALL="false"; shift ;;
     --in-place) IN_PLACE="true"; shift ;;
+    --nickname) NICKNAME="${2:-}"; shift 2 ;;
     *) fail "Unknown installer argument: $1" ;;
   esac
 done
@@ -46,12 +48,17 @@ if [ "$IN_PLACE" = "false" ] && [ "$PROJECT_ROOT" != "$INSTALL_ROOT" ]; then
   install_args=(--in-place --port "$PORT")
   [ "$CREATE_LAUNCHERS" = "false" ] || install_args+=(--launchers)
   [ "$LAUNCH_AFTER_INSTALL" = "true" ] || install_args+=(--no-launch)
+  [ -z "$NICKNAME" ] || install_args+=(--nickname "$NICKNAME")
   exec "$INSTALL_ROOT/scripts/install-dream-skin-macos.sh" "${install_args[@]}"
 fi
 
 discover_codex_app
 require_macos_runtime
 ensure_state_root
+[ -n "$NICKNAME" ] || { [ -f "$PREFERENCES_PATH" ] || NICKNAME="李嘉图"; }
+if [ -n "$NICKNAME" ]; then
+  "$NODE" "$SCRIPT_DIR/preferences.mjs" set-nickname --path "$PREFERENCES_PATH" --nickname "$NICKNAME" >/dev/null
+fi
 [ -f "$CONFIG_PATH" ] || fail "Codex config not found: $CONFIG_PATH. Launch Codex once, close it, and rerun the installer."
 "$NODE" "$INJECTOR" --check-payload --theme-dir "$THEME_DIR" >/dev/null
 "$NODE" "$SCRIPT_DIR/theme-config.mjs" install "$CONFIG_PATH" "$THEME_BACKUP_PATH"

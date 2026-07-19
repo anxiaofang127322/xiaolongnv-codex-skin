@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
-const SKIN_VERSION = "1.2.2";
+const SKIN_VERSION = "1.2.3";
 const LOOPBACK_HOSTS = new Set(["127.0.0.1", "localhost", "[::1]"]);
 const MAX_ART_BYTES = 16 * 1024 * 1024;
 
@@ -234,6 +234,7 @@ async function loadTheme(themeDir) {
     schemaVersion: 1,
     id: text(raw.id, "custom", 80),
     name: text(raw.name, "Codex Dream Skin", 80),
+    nickname: text(raw.nickname, "李嘉图", 24),
     brandSubtitle: text(raw.brandSubtitle, "CODEX DREAM SKIN", 80),
     tagline: text(raw.tagline, "Make something wonderful.", 160),
     projectPrefix: text(raw.projectPrefix, "选择项目 · ", 80),
@@ -266,6 +267,19 @@ async function loadTheme(themeDir) {
   return { assetsRoot, imagePath, imageStat, theme };
 }
 
+async function loadNickname(theme) {
+  const preferencesPath = process.env.CODEX_DREAM_SKIN_PREFERENCES;
+  if (!preferencesPath) return theme.nickname;
+  try {
+    const preferences = JSON.parse(await fs.readFile(preferencesPath, "utf8"));
+    const nickname = typeof preferences?.nickname === "string" ? preferences.nickname.normalize("NFC").trim() : "";
+    if (nickname && [...nickname].length <= 24 && !/[\u0000-\u001f\u007f]/.test(nickname)) return nickname;
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
+  }
+  return theme.nickname;
+}
+
 async function loadPayload(themeDir) {
   const [css, template, logo, loaded] = await Promise.all([
     fs.readFile(path.join(root, "assets", "xiaolongnv-skin.css"), "utf8"),
@@ -274,6 +288,7 @@ async function loadPayload(themeDir) {
     loadTheme(themeDir),
   ]);
   const { imagePath, theme } = loaded;
+  const nickname = await loadNickname(theme);
   const art = await fs.readFile(imagePath);
   const extension = path.extname(imagePath).toLowerCase();
   const mime = extension === ".jpg" || extension === ".jpeg" ? "image/jpeg"
@@ -284,16 +299,18 @@ async function loadPayload(themeDir) {
     .replaceAll("__DREAM_CSS_JSON__", JSON.stringify(css))
     .replaceAll("__DREAM_ART_JSON__", JSON.stringify(artDataUrl))
     .replaceAll("__DREAM_LOGO_JSON__", JSON.stringify(logoDataUrl))
+    .replaceAll("__DREAM_NICKNAME_JSON__", JSON.stringify(nickname))
     .replaceAll("__DREAM_SKIN_VERSION_JSON__", JSON.stringify(SKIN_VERSION));
   if ([
     "__DREAM_CSS_JSON__",
     "__DREAM_ART_JSON__",
     "__DREAM_LOGO_JSON__",
+    "__DREAM_NICKNAME_JSON__",
     "__DREAM_SKIN_VERSION_JSON__",
   ].some((placeholder) => payload.includes(placeholder))) {
     throw new Error("Payload placeholders were not fully replaced");
   }
-  return { imageBytes: art.length, payload, theme };
+  return { imageBytes: art.length, nickname, payload, theme };
 }
 
 async function applyToSession(session, payload) {
@@ -528,6 +545,7 @@ try {
       version: SKIN_VERSION,
       themeId: loaded.theme.id,
       themeName: loaded.theme.name,
+      nickname: loaded.nickname,
       imageBytes: loaded.imageBytes,
       payloadBytes: Buffer.byteLength(loaded.payload),
     }, null, 2));

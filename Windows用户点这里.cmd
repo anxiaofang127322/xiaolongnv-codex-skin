@@ -7,6 +7,11 @@ echo.
 echo 小龙女 Codex 皮肤安装程序
 echo 请先完全退出 Codex，再继续安装。
 echo.
+set "NICKNAME="
+set /p "NICKNAME=默认名称为【李嘉图】。请告诉我您要修改成什么昵称（直接回车保留默认）："
+if not defined NICKNAME set "NICKNAME=李嘉图"
+set "CODEX_DREAM_NICKNAME=%NICKNAME%"
+echo.
 
 where pwsh.exe >nul 2>nul
 if %errorlevel% equ 0 (

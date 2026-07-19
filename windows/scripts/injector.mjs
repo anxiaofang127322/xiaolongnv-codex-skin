@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
-const SKIN_VERSION = "1.0.0";
+const SKIN_VERSION = "1.2.3";
 const LOOPBACK_HOSTS = new Set(["127.0.0.1", "localhost", "[::1]", "::1"]);
 const BROWSER_ID_PATTERN = /^[A-Za-z0-9._-]{1,200}$/;
 
@@ -267,18 +267,34 @@ async function connectBrowserIdentityAnchor(port, expectedBrowserId) {
 }
 
 async function loadPayload() {
-  const [css, template, art, logo] = await Promise.all([
+  const [css, template, art, logo, nickname] = await Promise.all([
     fs.readFile(path.join(root, "assets", "dream-skin.css"), "utf8"),
     fs.readFile(path.join(root, "assets", "renderer-inject.js"), "utf8"),
     fs.readFile(path.join(root, "assets", "dream-reference.png")),
     fs.readFile(path.join(root, "assets", "codex-logo.png")),
+    loadNickname(),
   ]);
   const artDataUrl = `data:image/png;base64,${art.toString("base64")}`;
   const logoDataUrl = `data:image/png;base64,${logo.toString("base64")}`;
   return template
-    .replace("__DREAM_CSS_JSON__", JSON.stringify(css))
-    .replace("__DREAM_ART_JSON__", JSON.stringify(artDataUrl))
-    .replace("__DREAM_LOGO_JSON__", JSON.stringify(logoDataUrl));
+    .replaceAll("__DREAM_CSS_JSON__", JSON.stringify(css))
+    .replaceAll("__DREAM_ART_JSON__", JSON.stringify(artDataUrl))
+    .replaceAll("__DREAM_LOGO_JSON__", JSON.stringify(logoDataUrl))
+    .replaceAll("__DREAM_NICKNAME_JSON__", JSON.stringify(nickname))
+    .replaceAll("__DREAM_SKIN_VERSION_JSON__", JSON.stringify(SKIN_VERSION));
+}
+
+async function loadNickname() {
+  const preferencesPath = process.env.CODEX_DREAM_SKIN_PREFERENCES;
+  if (!preferencesPath) return "李嘉图";
+  try {
+    const preferences = JSON.parse(await fs.readFile(preferencesPath, "utf8"));
+    const nickname = typeof preferences?.nickname === "string" ? preferences.nickname.normalize("NFC").trim() : "";
+    if (nickname && [...nickname].length <= 24 && !/[\u0000-\u001f\u007f]/.test(nickname)) return nickname;
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
+  }
+  return "李嘉图";
 }
 
 async function probeSession(session) {
@@ -639,9 +655,15 @@ if (options.mode === "self-test") {
   console.log(JSON.stringify({ pass: true, version: SKIN_VERSION, test: "loopback-cdp-validation" }));
 } else if (options.mode === "check-payload") {
   const payload = await loadPayload();
-  if (payload.includes("__DREAM_CSS_JSON__") || payload.includes("__DREAM_ART_JSON__")) {
+  if (["__DREAM_CSS_JSON__", "__DREAM_ART_JSON__", "__DREAM_NICKNAME_JSON__", "__DREAM_SKIN_VERSION_JSON__"]
+      .some((placeholder) => payload.includes(placeholder))) {
     throw new Error("Payload placeholders were not fully replaced");
   }
-  console.log(JSON.stringify({ pass: true, version: SKIN_VERSION, payloadBytes: Buffer.byteLength(payload) }));
+  console.log(JSON.stringify({
+    pass: true,
+    version: SKIN_VERSION,
+    nickname: await loadNickname(),
+    payloadBytes: Buffer.byteLength(payload),
+  }));
 } else if (options.mode === "watch") await runWatch(options);
 else await runOneShot(options);

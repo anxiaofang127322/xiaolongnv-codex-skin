@@ -61,6 +61,10 @@ if (!imageStat.isFile() || imageStat.size < 1 || imageStat.size > 16 * 1024 * 10
 }
 
 const name = valueFor("name", "我的 Codex Dream Skin").trim().slice(0, 80);
+const nickname = valueFor("nickname", "李嘉图").normalize("NFC").trim();
+if ([...nickname].length > 24 || /[\u0000-\u001f\u007f]/.test(nickname)) {
+  throw new Error("nickname must be 24 characters or fewer and contain no control characters");
+}
 const tagline = valueFor("tagline", "把喜欢的画面变成可交互的 Codex 工作台。").trim().slice(0, 160);
 const quote = valueFor("quote", "MAKE SOMETHING WONDERFUL").trim().slice(0, 80);
 const accent = validateHex(valueFor("accent", "#7cff46"), "accent");
@@ -71,6 +75,7 @@ const custom = {
   schemaVersion: 1,
   id: `custom-${Date.now()}`,
   name: name || "我的 Codex Dream Skin",
+  nickname: nickname || "李嘉图",
   brandSubtitle: "CODEX DREAM SKIN",
   tagline: tagline || "把喜欢的画面变成可交互的 Codex 工作台。",
   projectPrefix: "选择项目 · ",

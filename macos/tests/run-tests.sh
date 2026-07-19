@@ -32,13 +32,19 @@ trap '/bin/rm -rf "$TMP"' EXIT
 /bin/mkdir -p "$TMP/theme"
 /bin/cp "$ROOT/assets/dream-reference.png" "$TMP/theme/background.png"
 "$NODE" "$ROOT/scripts/write-theme.mjs" custom --output-dir "$TMP/theme" \
-  --image background.png --name '测试主题' --tagline '测试口号' --quote 'TEST' \
+  --image background.png --name '测试主题' --nickname '小芳' --tagline '测试口号' --quote 'TEST' \
   --accent '#11aa55' --secondary '#22bbcc' --highlight '#663399' >/dev/null
 PAYLOAD_JSON="$("$NODE" "$ROOT/scripts/injector.mjs" --check-payload --theme-dir "$TMP/theme")"
 "$NODE" -e '
   const value = JSON.parse(process.argv[1]);
-  if (!value.pass || value.themeName !== "测试主题" || value.imageBytes < 1) process.exit(1);
+  if (!value.pass || value.themeName !== "测试主题" || value.nickname !== "小芳" || value.imageBytes < 1) process.exit(1);
 ' "$PAYLOAD_JSON"
+"$NODE" "$ROOT/scripts/preferences.mjs" set-nickname --path "$TMP/preferences.json" --nickname '阿芳' >/dev/null
+PREFERENCE_PAYLOAD_JSON="$(CODEX_DREAM_SKIN_PREFERENCES="$TMP/preferences.json" "$NODE" "$ROOT/scripts/injector.mjs" --check-payload)"
+"$NODE" -e '
+  const value = JSON.parse(process.argv[1]);
+  if (!value.pass || value.nickname !== "阿芳") process.exit(1);
+' "$PREFERENCE_PAYLOAD_JSON"
 "$NODE" "$ROOT/scripts/write-theme.mjs" reset-demo --output-dir "$TMP/theme" >/dev/null
 [ ! -e "$TMP/theme" ]
 
@@ -57,7 +63,7 @@ BACKUP="$TMP/theme-backup.json"
 "$NODE" "$ROOT/scripts/theme-config.mjs" restore "$CONFIG" "$BACKUP" >/dev/null
 /usr/bin/cmp -s "$CONFIG" "$TMP/original.toml"
 
-/usr/bin/env -u HOME /bin/bash -c '. "$1/scripts/common-macos.sh"; [ -n "$HOME" ] && [ "$SKIN_VERSION" = "1.2.2" ]' _ "$ROOT"
+/usr/bin/env -u HOME /bin/bash -c '. "$1/scripts/common-macos.sh"; [ -n "$HOME" ] && [ "$SKIN_VERSION" = "1.2.3" ]' _ "$ROOT"
 "$ROOT/scripts/doctor-macos.sh" >/dev/null
 
 printf 'PASS: syntax, payload, custom-theme, config round-trip, HOME recovery, signature, and doctor checks.\n'
